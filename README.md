@@ -112,7 +112,7 @@ Returns a [SMS::Send](https://metacpan.org/pod/SMS::Send) object for use in this
 
 # SEE ALSO
 
-[SMS::Send](https://metacpan.org/pod/SMS::Send), [CGI](https://metacpan.org/pod/CGI), [JSON](https://metacpan.org/pod/JSON)
+[SMS::Send](https://metacpan.org/pod/SMS::Send), [CGI](https://metacpan.org/pod/CGI), [JSON::XS](https://metacpan.org/pod/JSON::XS)
 
 # AUTHOR
 

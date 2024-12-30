@@ -2,7 +2,7 @@ package SMS::Send::Adapter::Node::Red;
 use strict;
 use warnings;
 use base qw{Package::New};
-use JSON qw{decode_json encode_json};
+use JSON::XS qw{decode_json encode_json};
 use SMS::Send;
 use CGI;
 
@@ -302,7 +302,7 @@ sub SMS {
 
 =head1 SEE ALSO
 
-L<SMS::Send>, L<CGI>, L<JSON>
+L<SMS::Send>, L<CGI>, L<JSON::XS>
 
 =head1 AUTHOR
 
