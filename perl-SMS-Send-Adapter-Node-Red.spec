@@ -1,6 +1,6 @@
 Name:           perl-SMS-Send-Adapter-Node-Red
-Version:        0.08
-Release:        2%{?dist}
+Version:        0.09
+Release:        1%{?dist}
 Summary:        SMS::Send Adapter to Node-RED JSON HTTP request
 License:        mit
 Group:          Development/Libraries
@@ -14,10 +14,12 @@ BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(Package::New)
 BuildRequires:  perl(SMS::Send)
 BuildRequires:  perl(SMS::Send::VoIP::MS)
+BuildRequires:  perl(Config::IniFiles)
 Requires:       perl(CGI)
 Requires:       perl(JSON::XS)
 Requires:       perl(Package::New)
 Requires:       perl(SMS::Send)
+Requires:       perl(Config::IniFiles)
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description

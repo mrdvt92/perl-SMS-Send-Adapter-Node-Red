@@ -6,9 +6,9 @@ use JSON::XS qw{decode_json encode_json};
 use SMS::Send;
 use CGI;
 
-our $VERSION = '0.08';
+our $VERSION = '0.09';
 our $PACKAGE = __PACKAGE__;
-our $DRIVER  = $ENV{'SMS_SEND_ADAPTER_NODE_RED_DRIVER'};
+our $DRIVER  = $ENV{'SMS_SEND_ADAPTER_NODE_RED_DRIVER'}; #or first driver in /etc/SMS-Send.ini
 
 =head1 NAME
 
@@ -276,10 +276,17 @@ Returns a L<SMS::Send> object for use in this package.
 =cut
 
 sub SMS {
-  my $self   = shift;
-  my $input  = $self->input; #undef on error
+  my $self  = shift;
+  my $input = $self->input; #undef on error
   if (defined $input) {
-    my $driver = $input->{'driver'} || $DRIVER;
+    my $driver   = $input->{'driver'} || $DRIVER;
+    my $ini_file = '/etc/SMS-Send.ini';
+    if (!$driver and -r $ini_file) {
+      require Config::IniFiles;
+      my $cfg     = Config::IniFiles->new(-file=>$ini_file);
+      my @drivers = grep {$cfg->val($_, 'active', '1')} $cfg->Sections;
+      $driver     = $drivers[0] if @drivers;
+    }
     if ($driver) {
       my $options = $input->{'options'} || {};
       if (ref($options) eq 'HASH') {
@@ -287,14 +294,14 @@ sub SMS {
         $self->{'SMS'} =  eval{SMS::Send->new($driver, %$options)};
         my $error      = $@;
         if ($error) {
-          my $text = qq{Failed to load Perl package SMS::Send with driver "$driver". Please ensure both SMS::Send and SMS::Send::$driver are installed. $error};
+          my $text = qq{Failed to load Perl package SMS::Send with driver "$driver". Ensure SMS::Send::$driver is installed. $error};
           $self->set_status_error(500=>$text);
         }
       } else {
         $self->set_status_error(400=>'Error: JSON input "options" not an object.');
       }
     } else {
-      $self->set_status_error(400=>'Error: JSON input missing "driver".');
+      $self->set_status_error(400=>'Error: "driver" not defined in JSON input, environment variable SMS_SEND_ADAPTER_NODE_RED_DRIVER, or in SMS-Send.ini.');
     }
   }
   return $self->{'SMS'};
