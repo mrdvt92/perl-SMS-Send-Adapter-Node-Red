@@ -1,6 +1,6 @@
 Name:           perl-SMS-Send-Adapter-Node-Red
 Version:        0.08
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        SMS::Send Adapter to Node-RED JSON HTTP request
 License:        mit
 Group:          Development/Libraries
@@ -61,7 +61,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%doc Changes META.json README
+%doc Changes META.json README.md
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 %{_datadir}/%{name}/*.psgi
