@@ -1,5 +1,5 @@
 Name:           perl-SMS-Send-Adapter-Node-Red
-Version:        0.09
+Version:        0.10
 Release:        1%{?dist}
 Summary:        SMS::Send Adapter to Node-RED JSON HTTP request
 License:        mit

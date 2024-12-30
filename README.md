@@ -86,6 +86,10 @@ Error string passed in the JSON return object.
 
 Method to set the HTTP status and error with one function call.
 
+## driver
+
+Returns configured SMS driver from input, environment, or SMS-Send.ini.
+
 # METHODS (ACTIONS)
 
 ## send\_sms
